@@ -14,6 +14,9 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private TMDBMovieService tmdbMovieService;
+
     public Set getAllMovies() {
         Set<Movie> movies = new HashSet<>();
         movieRepository.findAll().forEach(movies::add);
@@ -25,10 +28,14 @@ public class MovieService {
     }
 
     public void addMovie(Movie movie){
+        // Update Required Details from TMDB APIs
+        tmdbMovieService.updateMovieDetails(movie);
         movieRepository.save(movie);
     }
 
     public void updateMovie(Movie movie){
+        // Update Required Details from TMDB APIs
+        tmdbMovieService.updateMovieDetails(movie);
         movieRepository.save(movie);
     }
 
