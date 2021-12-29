@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/tv-shows/{tv-show-id}/seasons")
+@RequestMapping("/api/tv-shows/{tv-show-id}/seasons")
 public class SeasonController {
 
     @Autowired

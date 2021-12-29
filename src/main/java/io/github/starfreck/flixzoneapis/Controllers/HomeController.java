@@ -10,6 +10,11 @@ public class HomeController {
 
     @RequestMapping("/")
     public String Home(){
+        return "Hi! Welcome to FlixZone";
+    }
+
+    @RequestMapping("/api")
+    public String apiHome(){
         return "Hi! Welcome to FlixZone APIs";
     }
 
