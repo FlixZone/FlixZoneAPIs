@@ -1,4 +1,4 @@
-package io.github.starfreck.flixzoneapis.Services;
+package io.github.starfreck.flixzoneapis.Services.TMDB;
 
 import io.github.starfreck.flixzoneapis.Models.Movie;
 import io.github.starfreck.flixzoneapis.Models.TMDB.TMDBGenre;
@@ -14,15 +14,21 @@ public class TMDBMovieService {
 
     @Value("${tmdb.api.key}")
     private final String apiKey;
+
+    @Value("${tmdb.api.movie.url}")
+    private final String apiBaseUrl;
+
     @Value("${tmdb.img.base.url}")
     private final String imgBaseUrl;
 
-    private final WebClient client;
+    private WebClient client;
 
     public TMDBMovieService() {
-        apiKey = null;
-        imgBaseUrl = "";
-        client = WebClient.create("https://api.themoviedb.org/3/movie");
+        this.apiKey = null;
+        this.apiBaseUrl = null;
+        this.imgBaseUrl = null;
+        this.client = null;
+
     }
 
     public void updateMovieDetails(Movie movie) {
@@ -51,6 +57,8 @@ public class TMDBMovieService {
     }
 
     private TMDBMovie getMovieDetails(long tmdbId) {
+
+        client = WebClient.create(apiBaseUrl);
 
         return client.get()
                 .uri("/{tmdbId}?api_key={apiKey}&language=en-US", tmdbId, apiKey)

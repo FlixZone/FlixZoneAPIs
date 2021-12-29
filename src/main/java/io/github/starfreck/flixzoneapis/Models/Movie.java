@@ -11,7 +11,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int theMovieDbId;
+    private long theMovieDbId;
 
     private String title;
     private String tagline;
@@ -33,7 +33,7 @@ public class Movie {
 
     }
 
-    public Movie(long id, int theMovieDbId, String title, String tagline, String overview, String originalTitle, String originalLanguage, String posterPath, String genres, int voteCount, double voteAverage, String telegramFileId) {
+    public Movie(long id, long theMovieDbId, String title, String tagline, String overview, String originalTitle, String originalLanguage, String posterPath, String genres, int voteCount, double voteAverage, String telegramFileId) {
         this.id = id;
         this.theMovieDbId = theMovieDbId;
         this.title = title;
@@ -56,11 +56,11 @@ public class Movie {
         this.id = id;
     }
 
-    public int getTheMovieDbId() {
+    public long getTheMovieDbId() {
         return theMovieDbId;
     }
 
-    public void setTheMovieDbId(int theMovieDbId) {
+    public void setTheMovieDbId(long theMovieDbId) {
         this.theMovieDbId = theMovieDbId;
     }
 

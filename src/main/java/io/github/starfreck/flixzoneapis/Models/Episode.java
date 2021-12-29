@@ -12,6 +12,14 @@ public class Episode {
     private long id;
     private long episodeId;
     private String title;
+    @Column(length = 1200)
+    private String overview;
+    private String airDate;
+    private String posterPath;
+
+    private int voteCount;
+    private double voteAverage;
+
     private String telegramFileId;
 
     @JsonIgnore
@@ -26,10 +34,15 @@ public class Episode {
 
     }
 
-    public Episode(long id, long episodeId, String title, String telegramFileId, Season season, TVShow tvShow) {
+    public Episode(long id, long episodeId, String title, String overview, String airDate, String posterPath, int voteCount, double voteAverage, String telegramFileId, Season season, TVShow tvShow) {
         this.id = id;
         this.episodeId = episodeId;
         this.title = title;
+        this.overview = overview;
+        this.airDate = airDate;
+        this.posterPath = posterPath;
+        this.voteCount = voteCount;
+        this.voteAverage = voteAverage;
         this.telegramFileId = telegramFileId;
         this.season = season;
         this.tvShow = tvShow;
@@ -43,6 +56,14 @@ public class Episode {
         this.id = id;
     }
 
+    public long getEpisodeId() {
+        return episodeId;
+    }
+
+    public void setEpisodeId(long episodeId) {
+        this.episodeId = episodeId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -51,20 +72,52 @@ public class Episode {
         this.title = title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getAirDate() {
+        return airDate;
+    }
+
+    public void setAirDate(String airDate) {
+        this.airDate = airDate;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
     public String getTelegramFileId() {
         return telegramFileId;
     }
 
     public void setTelegramFileId(String telegramFileId) {
         this.telegramFileId = telegramFileId;
-    }
-
-    public long getEpisodeId() {
-        return episodeId;
-    }
-
-    public void setEpisodeId(long episodeId) {
-        this.episodeId = episodeId;
     }
 
     public Season getSeason() {
@@ -89,8 +142,12 @@ public class Episode {
                 "id=" + id +
                 ", episodeId=" + episodeId +
                 ", title='" + title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", airDate='" + airDate + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", voteCount=" + voteCount +
+                ", voteAverage=" + voteAverage +
                 ", telegramFileId='" + telegramFileId + '\'' +
-                ", season=" + season +
                 '}';
     }
 }

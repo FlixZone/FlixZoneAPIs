@@ -6,6 +6,7 @@ import io.github.starfreck.flixzoneapis.Models.TVShow;
 import io.github.starfreck.flixzoneapis.Repositories.EpisodeRepository;
 import io.github.starfreck.flixzoneapis.Repositories.SeasonRepository;
 import io.github.starfreck.flixzoneapis.Repositories.TVShowRepository;
+import io.github.starfreck.flixzoneapis.Services.TMDB.TMDBTVShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class EpisodeService {
 
     @Autowired
     private TVShowRepository tvShowRepository;
+
+    @Autowired
+    private TMDBTVShowService tmdbtvShowService;
 
     public Set<Episode> getAllEpisodes(long tvShowId, long seasonId) {
         Set<Episode> episodes = new HashSet<>();
@@ -44,6 +48,9 @@ public class EpisodeService {
             TVShow tvShow = tvShowRepository.findById(tvShowId).get();
             Season season = seasonRepository.findSeasonByTvShowIdAndAndSeasonId(tvShowId, seasonId);
 
+            // Update Episode
+            tmdbtvShowService.updateEpisodeDetails(tvShow.getTheMovieDbId(), seasonId, episode);
+            // Required?
             episode.setSeason(season);
             episode.setTvShow(tvShow);
 
@@ -58,7 +65,11 @@ public class EpisodeService {
 
         if (hasEpisode){
 
+            TVShow tvShow = tvShowRepository.findById(tvShowId).get();
             Episode oldEpisode = episodeRepository.findEpisodeByTvShowIdAndSeason_IdAndEpisodeId(tvShowId, seasonId, episode.getEpisodeId());
+
+            // Update Episode
+            tmdbtvShowService.updateEpisodeDetails(tvShow.getTheMovieDbId(), seasonId, episode);
 
             oldEpisode.setTitle(episode.getTitle());
             oldEpisode.setTelegramFileId(episode.getTelegramFileId());

@@ -4,6 +4,7 @@ import io.github.starfreck.flixzoneapis.Models.Season;
 import io.github.starfreck.flixzoneapis.Models.TVShow;
 import io.github.starfreck.flixzoneapis.Repositories.SeasonRepository;
 import io.github.starfreck.flixzoneapis.Repositories.TVShowRepository;
+import io.github.starfreck.flixzoneapis.Services.TMDB.TMDBTVShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class SeasonService {
 
     @Autowired
     SeasonRepository seasonRepository;
+
+    @Autowired
+    private TMDBTVShowService tmdbtvShowService;
 
     public Set<Season> getAllSeasons(long tvShowId) {
         Set<Season> seasons = new HashSet<>();
@@ -37,9 +41,12 @@ public class SeasonService {
 
             TVShow tvShow = tvShowRepository.findById(tvShowId).get();
 
-            // Store TV Show
+            // Update Season
+            tmdbtvShowService.updateSeasonDetails(tvShow.getTheMovieDbId(),season);
+
+            // Update TV Show (Remove ?)
             season.setTvShow(tvShow);
-            System.out.println(season);
+
             seasonRepository.save(season);
         }
     }
@@ -50,10 +57,14 @@ public class SeasonService {
 
         if (hasSeason) {
 
+            TVShow tvShow = tvShowRepository.findById(tvShowId).get();
+
             Season oldSeason = seasonRepository.findSeasonByTvShowIdAndAndSeasonId(tvShowId, season.getSeasonId());
 
+            // Update TV Show
+            // Update Season
+            tmdbtvShowService.updateSeasonDetails(tvShow.getTheMovieDbId(),season);
             oldSeason.setTitle(season.getTitle());
-            System.out.println(oldSeason);
             seasonRepository.save(oldSeason);
         }
     }

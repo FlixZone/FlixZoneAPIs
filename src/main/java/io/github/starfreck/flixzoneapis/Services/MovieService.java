@@ -2,6 +2,7 @@ package io.github.starfreck.flixzoneapis.Services;
 
 import io.github.starfreck.flixzoneapis.Models.Movie;
 import io.github.starfreck.flixzoneapis.Repositories.MovieRepository;
+import io.github.starfreck.flixzoneapis.Services.TMDB.TMDBMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +29,13 @@ public class MovieService {
     }
 
     public void addMovie(Movie movie){
-        // Update Required Details from TMDB APIs
-        tmdbMovieService.updateMovieDetails(movie);
-        movieRepository.save(movie);
+        // only Add if it doesn't exist ( The tmdb id check)
+        if(!movieRepository.existsMovieByTheMovieDbId(movie.getTheMovieDbId())){
+            // Update Required Details from TMDB APIs
+            tmdbMovieService.updateMovieDetails(movie);
+            movieRepository.save(movie);
+        }
+
     }
 
     public void updateMovie(Movie movie){

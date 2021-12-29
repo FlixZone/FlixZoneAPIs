@@ -12,7 +12,13 @@ public class Season {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long seasonId;
+
     private String title;
+    @Column(length = 1200)
+    private String overview;
+    private String posterPath;
+
+    private String airDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "season",cascade=CascadeType.ALL)
@@ -25,11 +31,13 @@ public class Season {
     public Season() {
     }
 
-    public Season(long id, long seasonId, String title, Set<Episode> episodes, TVShow tvShow) {
+    public Season(long id, long seasonId, String title, String overview, String posterPath, String airDate, TVShow tvShow) {
         this.id = id;
         this.seasonId = seasonId;
         this.title = title;
-        this.episodes = episodes;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.airDate = airDate;
         this.tvShow = tvShow;
     }
 
@@ -57,6 +65,30 @@ public class Season {
         this.title = title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getAirDate() {
+        return airDate;
+    }
+
+    public void setAirDate(String airDate) {
+        this.airDate = airDate;
+    }
+
     public Set<Episode> getEpisodes() {
         return episodes;
     }
@@ -79,8 +111,9 @@ public class Season {
                 "id=" + id +
                 ", seasonId=" + seasonId +
                 ", title='" + title + '\'' +
-                ", episodes=" + episodes +
-                ", tvShow=" + tvShow +
+                ", overview='" + overview + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", airDate='" + airDate + '\'' +
                 '}';
     }
 }
