@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -35,9 +36,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         String[] publicUrls = {"/","/api","/api/auth","/api/auth/*"};
 
         // Allow Public URLs to bypass & disable Sessions
-        httpSecurity.csrf()
-                .ignoringAntMatchers(publicUrls)
-                .and()
+        httpSecurity
+                .csrf().disable()
                 .authorizeRequests().antMatchers(publicUrls).permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().and().sessionManagement()

@@ -4,6 +4,7 @@ import io.github.starfreck.flixzoneapis.App.Models.Auth.AuthRequest;
 import io.github.starfreck.flixzoneapis.App.Models.Auth.AuthResponse;
 import io.github.starfreck.flixzoneapis.App.Services.UserService;
 import io.github.starfreck.flixzoneapis.Util.JWTUtil;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,11 @@ public class HomeController {
 
     @PostMapping("/api/auth")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) {
+
+        // Auth via Telegram ID (No Need Fot Password)
+        if (NumberUtils.isDigits(authRequest.getUsername())) {
+            authRequest.setPassword("");
+        }
 
         try {
             authenticationManager.authenticate(

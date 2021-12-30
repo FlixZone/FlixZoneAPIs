@@ -7,8 +7,6 @@ import java.util.Set;
 
 public interface MovieRepository extends CrudRepository<Movie,Long> {
 
-    // only add special methods
-
     public boolean existsMovieByTheMovieDbId(Long theMovieDbId);
 
     public Set<Movie> findAllByTitleIsContaining(String title);
