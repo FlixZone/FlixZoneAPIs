@@ -1,0 +1,20 @@
+name: Heroku Deployment
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        environment:
+            name: Test
+            url: https://flixzone-api.herokuapp.com
+        steps:
+            - uses: actions/checkout@v2
+            - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                  heroku_app_name: 'flixzone-api' #Must be unique in Heroku
+                  heroku_email: ${{secrets.HEROKU_EMAIL}}
