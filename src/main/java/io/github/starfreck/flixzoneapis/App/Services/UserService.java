@@ -72,11 +72,31 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void updateMovie(User user) {
+    public void updateUser(User user) {
         userRepository.save(user);
     }
 
     public void deleteUser(long id) {
         userRepository.deleteById(id);
+    }
+
+    // Telegram User Specific Services
+
+    public User getTelegramUser(String telegramId) {
+        return userRepository.findUserByTelegramId(telegramId).get();
+    }
+
+    public void updateTelegramUser(User user) {
+
+        User oldUser = getTelegramUser(user.getTelegramId());
+
+        // Update All Information
+        oldUser.setTelegramId(user.getTelegramId());
+        oldUser.setUsername(user.getUsername());
+        oldUser.setFirstName(user.getFirstName());
+        oldUser.setLastName(user.getLastName());
+        oldUser.setLanguageCode(user.getLanguageCode());
+
+        userRepository.save(oldUser);
     }
 }
