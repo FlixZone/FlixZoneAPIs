@@ -1,5 +1,7 @@
 package io.github.starfreck.flixzoneapis.App.Models.Auth;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,30 +12,41 @@ import java.util.Collection;
 
 
 @Entity
+@DynamicInsert
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String email;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String password;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String username;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String firstName;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String lastName;
-    @Column(columnDefinition = "integer default 2")
+    @Column
+    @ColumnDefault("2")
     private int userType;
-    @Column(columnDefinition = "varchar(255) default ''")
+    @Column
+    @ColumnDefault("''")
     private String telegramId;
-    @Column(columnDefinition = "tinyint(1) default 0")
+    @Column
+    @ColumnDefault("0")
     private Boolean active;
-    @Column(columnDefinition = "varchar(255) default 'USER'")
+    @Column
+    @ColumnDefault("'USER'")
     private String roles;
-    @Column(columnDefinition = "varchar(255) default 'en'")
+    @Column
+    @ColumnDefault("'en'")
     private String languageCode;
 
 
