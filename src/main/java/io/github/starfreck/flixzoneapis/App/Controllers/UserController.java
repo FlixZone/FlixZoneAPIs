@@ -15,8 +15,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public Set<User> getAllUsers(){
-        return  userService.getAllUsers();
+    public Set<User> getAllUsers(@RequestParam(name="type", required = false, defaultValue = "") String type){
+        return  userService.getAllUsers(type);
     }
 
     @GetMapping("/{id}")

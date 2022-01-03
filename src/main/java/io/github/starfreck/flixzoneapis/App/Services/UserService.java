@@ -4,6 +4,7 @@ import io.github.starfreck.flixzoneapis.App.Models.Auth.User;
 import io.github.starfreck.flixzoneapis.App.Repositories.UserRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,10 +51,16 @@ public class UserService implements UserDetailsService {
         return springBootUser;
     }
 
-    public Set<User> getAllUsers() {
+    public Set<User> getAllUsers(String type) {
 
         Set<User> users = new HashSet<>();
-        userRepository.findAll().forEach(users::add);
+        if(type.equalsIgnoreCase("admin")){
+            userRepository.findUsersByUserType(1).forEach(users::add);
+        } else if(type.equalsIgnoreCase("user")){
+            userRepository.findUsersByUserType(2).forEach(users::add);
+        } else {
+            userRepository.findAll().forEach(users::add);
+        }
         return users;
     }
 

@@ -1,5 +1,6 @@
 package io.github.starfreck.flixzoneapis.App.Models.Auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,6 +24,7 @@ public class User implements UserDetails {
     private String email;
     @Column
     @ColumnDefault("''")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column
     @ColumnDefault("''")
