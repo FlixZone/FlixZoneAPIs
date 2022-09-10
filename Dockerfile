@@ -23,4 +23,4 @@ ARG DB_USER_PASSWORD
 ARG TMDB_API_KEY
 ARG JWT_SECRET_KEY
 
-ENTRYPOINT ["java","-jar","-Dspring.datasource.url=$DB_URL -Dspring.datasource.username=$DB_USER_NAME -Dspring.datasource.password=$DB_USER_PASSWORD -Dtmdb.api.key=$TMDB_API_KEY -Djwt.secret=$JWT_SECRET_KEY","flixzone-api.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.datasource.url=${DB_URL} -Dspring.datasource.username=${DB_USER_NAME} -Dspring.datasource.password=${DB_USER_PASSWORD} -Dtmdb.api.key=${TMDB_API_KEY} -Djwt.secret=${JWT_SECRET_KEY}","flixzone-api.jar"]
