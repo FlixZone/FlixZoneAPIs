@@ -24,4 +24,4 @@ ARG TMDB_API_KEY
 ARG JWT_SECRET_KEY
 
 RUN --mount=type=secret,id=application-prod.properties,dst=/etc/secrets/application-prod.properties cat /etc/secrets/application-prod.properties
-ENTRYPOINT ["java","-jar","-Dspring.config.location=/etc/secrets/application-prod.properties","flixzone-api.jar"]
+ENTRYPOINT ["java","-jar","flixzone-api.jar","--spring.config.additional-location=/etc/secrets/application-prod.properties"]
