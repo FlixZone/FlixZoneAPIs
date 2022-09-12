@@ -17,10 +17,10 @@ WORKDIR /opt/app
 # Copy the spring-boot-api-tutorial.jar from the maven stage to the /opt/app directory of the current stage.
 COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/
 
-ARG DB_URL
-ARG DB_USER_NAME
-ARG DB_USER_PASSWORD
-ARG TMDB_API_KEY
-ARG JWT_SECRET_KEY
+ARG  DB_URL
+ARG  DB_USER_NAME
+ARG  DB_USER_PASSWORD
+ARG  TMDB_API_KEY
+ARG  JWT_SECRET_KEY
 
-ENTRYPOINT ["java","-Dspring.datasource.url=${DB_URL} -Dspring.datasource.username=${DB_USER_NAME} -Dspring.datasource.password=${DB_USER_PASSWORD} -Dtmdb.api.key=${TMDB_API_KEY} -Djwt.secret=${JWT_SECRET_KEY}","-jar","flixzone-api.jar"]
+ENTRYPOINT ["java","-jar","flixzone-api.jar","--spring.datasource.url=${DB_URL} --spring.datasource.username=${DB_USER_NAME} --spring.datasource.password=${DB_USER_PASSWORD} --tmdb.api.key=${TMDB_API_KEY} --jwt.secret=${JWT_SECRET_KEY}"]
