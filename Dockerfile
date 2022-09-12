@@ -23,6 +23,4 @@ ARG DB_USER_PASSWORD
 ARG TMDB_API_KEY
 ARG JWT_SECRET_KEY
 
-RUN --mount=type=secret,id=application-prod.properties,dst=/etc/secrets/application-prod.properties cat /etc/secrets/application-prod.properties
-DOCKER_BUILDKIT=1 docker build --secret id=application-prod.properties,src=/etc/secrets/application-prod.properties
-ENTRYPOINT ["java","-jar","flixzone-api.jar","--spring.config.additional-location=/etc/secrets/application-prod.properties"]
+ENTRYPOINT ["java","-Dspring.datasource.url=${DB_URL} -Dspring.datasource.username=${DB_USER_NAME} -Dspring.datasource.password=${DB_USER_PASSWORD} -Dtmdb.api.key=${TMDB_API_KEY} -Djwt.secret=${JWT_SECRET_KEY}","-jar","flixzone-api.jar"]
