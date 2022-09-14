@@ -8,8 +8,6 @@ services:
     envVars:
       - key: DB_HOST
         sync: false
-      - key: DB_NAME
-        sync: false
       - key: DB_USER_NAME
         sync: false
       - key: DB_USER_PASSWORD
